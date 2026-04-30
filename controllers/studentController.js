@@ -30,12 +30,9 @@ const getFees = async (req, res, next) => {
     const fee = student.fees && student.fees[semesterKey] !== undefined ? student.fees[semesterKey] : null;
 
     res.status(200).json({
-      success: true,
-      data: {
-        enrollment: student.enrollment,
-        semester: sem,
-        fee: fee !== undefined ? fee : null
-      }
+      enrollment: student.enrollment,
+      semester: sem,
+      fee: fee !== undefined ? fee : null
     });
   } catch (error) {
     next(error);
@@ -62,11 +59,8 @@ const getCgpa = async (req, res, next) => {
     }
 
     res.status(200).json({
-      success: true,
-      data: {
-        enrollment: student.enrollment,
-        cgpa: student.cgpa
-      }
+      cgpa: student.cgpa,
+      enrollment: student.enrollment
     });
   } catch (error) {
     next(error);
@@ -104,12 +98,9 @@ const getMarksheet = async (req, res, next) => {
     const marksheetUrl = documents && documents.marksheet ? documents.marksheet : null;
 
     res.status(200).json({
-      success: true,
-      data: {
-        enrollment: student.enrollment,
-        semester: sem,
-        marksheetUrl: marksheetUrl || null
-      }
+      enrollment: student.enrollment,
+      semester: sem,
+      marksheetUrl: marksheetUrl || null
     });
   } catch (error) {
     next(error);
@@ -131,11 +122,8 @@ const verifyStudent = async (req, res, next) => {
     const studentExists = await Student.exists({ enrollment });
 
     res.status(200).json({
-      success: true,
-      data: {
-        enrollment,
-        exists: studentExists !== null
-      }
+      enrollment,
+      exists: studentExists !== null
     });
   } catch (error) {
     next(error);
