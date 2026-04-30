@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getFees, getCgpa, getMarksheet, verifyStudent } = require('../controllers/studentController');
+const { getFees, getCgpa, getMarksheet, verifyStudent, getDetails } = require('../controllers/studentController');
+
+// GET /api/students/get-details?enrollment=&sem=
+router.get('/get-details', getDetails);
 
 // GET /api/students/get-fees?enrollment=&sem=
 router.get('/get-fees', getFees);
