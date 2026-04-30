@@ -59,8 +59,7 @@ const getCgpa = async (req, res, next) => {
     }
 
     res.status(200).json({
-      cgpa: student.cgpa,
-      enrollment: student.enrollment
+      message: `Your CGPA is ${student.cgpa}`
     });
   } catch (error) {
     next(error);
