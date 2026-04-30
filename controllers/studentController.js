@@ -142,9 +142,42 @@ const verifyStudent = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getFees,
-  getCgpa,
-  getMarksheet,
-  verifyStudent
+// @desc    Get all student details combined (Recommended for n8n)
+// @route   GET /api/students/get-details?enrollment=&sem=
+// @access  Public
+const getDetails = async (req, res, next) => {
+  try {
+    const { enrollment, sem } = req.query;
+
+    if (!enrollment || !sem) {
+      res.status(400);
+      throw new Error('Please provide enrollment and sem');
+    }
+
+    const student = await Student.findOne({ enrollment });
+
+    if (!student) {
+      res.status(404);
+      throw new Error('Student not found');
+    }
+
+    const validSemesters = ['semester1', 'semester2', 'semester3'];
+    const semesterKey = `semester${sem}`;
+
+    let fee = null;
+    if (validSemesters.includes(semesterKey) && student.fees) {
+      fee = student.fees[semesterKey] !== undefined ? student.fees[semesterKey] : null;
+    }
+
+    // Return exact flat JSON structure requested
+    res.status(200).json({
+      cgpa: student.cgpa,
+      fees: fee,
+      name: student.name
+    });
+  } catch (error) {
+    next(error);
+  }
 };
+
+module.exports = { getFees, getCgpa, getMarksheet, verifyStudent, getDetails };
