@@ -18,6 +18,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('University Management API is running...');
+});
+
 app.use('/api/students', studentRoutes);
 
 // Error Handler Middleware
