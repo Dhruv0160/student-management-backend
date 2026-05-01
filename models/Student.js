@@ -21,6 +21,10 @@ const studentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  attendance: {
+    type: Number,
+    default: 85, // Default attendance percentage for mock data
+  },
   fees: {
     semester1: { type: Number },
     semester2: { type: Number },
