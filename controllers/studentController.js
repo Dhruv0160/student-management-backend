@@ -167,4 +167,31 @@ const getDetails = async (req, res, next) => {
   }
 };
 
-module.exports = { getFees, getCgpa, getMarksheet, verifyStudent, getDetails };
+// @desc    Get student attendance
+// @route   GET /api/students/get-attendance?enrollment=
+// @access  Public
+const getAttendance = async (req, res, next) => {
+  try {
+    const { enrollment } = req.query;
+
+    if (!enrollment) {
+      res.status(400);
+      throw new Error('Please provide enrollment');
+    }
+
+    const student = await Student.findOne({ enrollment });
+
+    if (!student) {
+      res.status(404);
+      throw new Error('Student not found');
+    }
+
+    res.status(200).json({
+      attendance: student.attendance
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getFees, getCgpa, getMarksheet, verifyStudent, getDetails, getAttendance };
