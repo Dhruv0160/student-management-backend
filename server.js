@@ -22,6 +22,25 @@ app.get('/', (req, res) => {
   res.send('University Management API is running...');
 });
 
+// Generic endpoint for total university fees
+app.get('/api/fees', (req, res) => {
+  res.status(200).json({
+    totalFees: "1,20,000"
+  });
+});
+
+// Generic endpoint for required admission documents
+app.get('/api/documents', (req, res) => {
+  res.status(200).json({
+    documents: [
+      "Aadhaar Card",
+      "10th Marksheet",
+      "12th Marksheet",
+      "Passport Photo"
+    ]
+  });
+});
+
 app.use('/api/students', studentRoutes);
 
 // Error Handler Middleware
